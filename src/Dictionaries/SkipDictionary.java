@@ -34,8 +34,9 @@ public class SkipDictionary<K, V> implements IDictionary<K, V> {
     public V insert(K key, V value) {
         Pair<K, V> pair = new Pair<>(key, value);
         Pair<K, V> existingPair = skipList.search(pair);
-        if (existingPair != null)
+        if (existingPair != null) {
             skipList.remove(existingPair);
+        }
         skipList.insert(pair);
         return existingPair != null ? existingPair.getValue() : null;
     }

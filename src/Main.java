@@ -18,18 +18,24 @@ public class Main {
 
 		int[] ranges = new int[]{ 10, 50, 100, 200, 500, 800, 1000, 1500, 3000 };
 
-		for (int range : ranges)
+		for (int range : ranges) {
 			calculateTime(bst, range);
-//		for (int range : ranges)
-//			calculateTime(rbt, range);
-//		for (int range : ranges)
-//			calculateTime(skip0, range);
-//		for (int range : ranges)
-//			calculateTime(skip025, range);
-//		for (int range : ranges)
-//			calculateTime(skip05, range);
-//		for (int range : ranges)
-//			calculateTime(skip08, range);
+		}
+		for (int range : ranges) {
+			calculateTime(rbt, range);
+		}
+		for (int range : ranges) {
+			calculateTime(skip0, range);
+		}
+		for (int range : ranges) {
+			calculateTime(skip025, range);
+		}
+		for (int range : ranges) {
+			calculateTime(skip05, range);
+		}
+		for (int range : ranges) {
+			calculateTime(skip08, range);
+		}
 	}
 
 	public static void calculateTime(IDictionary<Integer,Integer> dictionary, int range) {
@@ -39,20 +45,23 @@ public class Main {
 		Random generator = new Random();
 
 		time1 = System.nanoTime();
-		for (int i = 0; i < range; i++)
+		for (int i = 0; i < range; i++) {
 			dictionary.insert(generator.nextInt(10000), i);
+		}
 		time2 = System.nanoTime();
 		System.out.println("Insert: " + (time2-time1)/1000);
 
 		time1 = System.nanoTime();
-		for (int i = 0; i < range; i++)
+		for (int i = 0; i < range; i++) {
 			dictionary.get(generator.nextInt(1000));
+		}
 		time2 = System.nanoTime();
 		System.out.println("Get: " + (time2-time1)/1000);
 
 		time1 = System.nanoTime();
-		for (int i = 0; i < range; i++)
+		for (int i = 0; i < range; i++) {
 			dictionary.remove(generator.nextInt(1000));
+		}
 		time2 = System.nanoTime();
 		System.out.println("Remove: " + (time2-time1)/1000);
 

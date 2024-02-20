@@ -1,7 +1,5 @@
 package DataStructures.BST;
 
-import DataStructures.BST.IExecutor;
-
 class IntegerToStringExec implements IExecutor<Integer, String> {
     StringBuffer line = new StringBuffer();
 

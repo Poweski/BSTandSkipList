@@ -27,61 +27,58 @@ public class BST<T> {
     }
 
     public void insert(T value) {
-
         Node newNode = new Node(value);
         Node current = root;
         Node parent = null;
 
-        while (current != null)
-        {
+        while (current != null) {
             parent = current;
-
-            if (comparator.compare(value,current.key) < 0)
+            if (comparator.compare(value,current.key) < 0) {
                 current = current.left;
-            else
+            }
+            else {
                 current = current.right;
+            }
         }
-        if (parent == null)
+        if (parent == null) {
             root = newNode;
-        else
-        {
-            if (comparator.compare(value,parent.key) < 0)
+        }
+        else {
+            if (comparator.compare(value,parent.key) < 0) {
                 parent.left = newNode;
-            else
+            }
+            else {
                 parent.right = newNode;
+            }
         }
     }
 
     public boolean delete(T value) {
-
         Node current = root;
         Node parent = null;
         boolean isLeftChild = false;
 
-        while (current != null)
-        {
-
-            if (comparator.compare(value,current.key) == 0)
-            {
-                if (current == root)
+        while (current != null) {
+            if (comparator.compare(value,current.key) == 0) {
+                if (current == root) {
                     root = deleteNode(current);
-                else
-                {
-                    if (isLeftChild)
+                }
+                else {
+                    if (isLeftChild) {
                         parent.left = deleteNode(current);
-                    else
+                    }
+                    else {
                         parent.right = deleteNode(current);
+                    }
                 }
                 return true;
             }
-            else if (comparator.compare(value,current.key) < 0)
-            {
+            else if (comparator.compare(value,current.key) < 0) {
                 parent = current;
                 current = current.left;
                 isLeftChild = true;
             }
-            else
-            {
+            else {
                 parent = current;
                 current = current.right;
                 isLeftChild = false;
@@ -92,69 +89,66 @@ public class BST<T> {
 
     private Node deleteNode(Node node) {
 
-        // Przypadek 1: Usuwamy liść
-        if (node.left == null && node.right == null)
+        // Case 1: We remove a leaf
+        if (node.left == null && node.right == null) {
             return null;
+        }
 
-        // Przypadek 2: Usuwamy węzeł z jednym prawym dzieckiem
-        else if (node.left == null)
+        // Case 2: We delete a node with one right child
+        else if (node.left == null) {
             return node.right;
+        }
 
-        // Przypadek 3: Usuwamy węzeł z jednym lewym dzieckiem
-        else if (node.right == null)
+        // Case 3: We delete a node with one left child
+        else if (node.right == null) {
             return node.left;
+        }
 
-        // Przypadek 4: Usuwamy węzeł z dwoma dziećmi
-        else
-        {
-            // Znajdujemy najmniejszą wartość w prawym poddrzewie
+        // Case 4: We delete a node with two children
+        else {
             Node successor = findMin(node.right);
-
-            // Zamieniamy wartość usuwanego węzła z wartością następnika
             node.key = successor.key;
-
-            // Rekurencyjnie usuwamy następnika z prawego poddrzewa
             node.right = deleteNode(successor);
-
             return node;
         }
     }
 
     private Node findMin(Node node) {
-        while (node.left != null)
+        while (node.left != null) {
             node = node.left;
+        }
         return node;
     }
 
     public T findSuccessor(T value) {
-
         Node node = findRecursive(root, value);
 
-        if (node == null)
+        if (node == null) {
             return null;
-
-        if (node.right != null)
+        }
+        if (node.right != null) {
             return findMin(node.right).key;
-        else
-        {
+        }
+        else {
             Node successor = null;
             Node current = root;
 
-            while (current != null)
-            {
-                if (comparator.compare(node.key,current.key) < 0)
-                {
+            while (current != null) {
+                if (comparator.compare(node.key,current.key) < 0) {
                     successor = current;
                     current = current.left;
                 }
-                else if (comparator.compare(node.key,current.key) > 0)
+                else if (comparator.compare(node.key,current.key) > 0) {
                     current = current.right;
-                else
+                }
+                else {
                     break;
+                }
             }
 
-            if (successor == null)
+            if (successor == null) {
                 return null;
+            }
 
             return successor.key;
         }
@@ -166,10 +160,12 @@ public class BST<T> {
     }
 
     private Node findRecursive(Node node, T key)  {
-        if (node == null || node.key == key)
+        if (node == null || node.key == key) {
             return node;
-        if (comparator.compare(node.key,key) > 0)
+        }
+        if (comparator.compare(node.key,key) > 0) {
             return findRecursive(node.left, key);
+        }
         return findRecursive(node.right, key);
     }
 
@@ -178,10 +174,12 @@ public class BST<T> {
     }
 
     private T findMinRecursive(Node node)  {
-        if (node == null)
+        if (node == null) {
             return null;
-        if (node.left == null)
+        }
+        if (node.left == null) {
             return node.key;
+        }
         return findMinRecursive(node.left);
     }
 
@@ -190,10 +188,12 @@ public class BST<T> {
     }
 
     private T findMaxRecursive(Node node)  {
-        if (node == null)
+        if (node == null) {
             return null;
-        if (node.right == null)
+        }
+        if (node.right == null) {
             return node.key;
+        }
         return findMinRecursive(node.right);
     }
 
